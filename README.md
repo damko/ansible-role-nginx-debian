@@ -1,4 +1,4 @@
-nginx
+Ansible Nginx Debian
 =====
 
 This Ansible role installs and configures the Nginx web server for a Debian system (squeeze or wheezy).
@@ -134,6 +134,6 @@ BSD
 Author Information
 ------------------
 
-Benno Joy
+Damiano Venturin
 
 
