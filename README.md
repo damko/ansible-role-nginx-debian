@@ -37,7 +37,7 @@ Examples
       gather_facts: yes
 
       roles:
-      - {role: nginx,
+      - {role: damko.nginx-debian,
          configure_nginx: false}
 
 
@@ -48,7 +48,7 @@ Examples
       gather_facts: yes
 
       roles:
-      - {role: nginx,
+      - {role: damko.nginx-debian,
          nginx_http_params: { sendfile: "on",
                               access_log: "/var/log/nginx/myaccess.log"},
                               nginx_sites: none }
@@ -57,14 +57,14 @@ Note: Please make sure the HTTP directives passed are valid, as this role
 won't check for the validity of the directives. See the nginx documentation
 for details.
 
-3) Install nginx and add a site to the configuration.
+3) Install nginx and add 1 site to the configuration.
 
     - hosts: all
 
       gather_facts: yes
 
       roles:
-      - role: nginx,
+      - role: damko.nginx-debian,
         nginx_http_params:
           sendfile: "on"
           access_log: "/var/log/nginx/access.log"
@@ -89,7 +89,7 @@ directives.
     ---
     - hosts: all
       roles:
-        - role: nginx
+        - role: damko.nginx-debian,
           nginx_http_params:
             sendfile: "on"
             access_log: "/var/log/nginx/access.log"
