@@ -1,0 +1,68 @@
+#{{ ansible_managed }}
+
+# Directive: daemon
+# Accepted values: on or off
+# Default value: on
+#
+# Enables or disables daemon mode. If you disable it, the program
+# will not be started in the background; it will stay in the foreground
+# when launched from the shell. This may come in handy for
+# debugging, in situations where you need to know what causes
+# Nginx to crash, and when.
+daemon                  {{ nginx_daemon }};
+
+user                    {{ nginx_user }} {{ nginx_group }};
+
+# This number should be, at maximum, the number of CPU cores on your system.
+# (since nginx doesn't benefit from more than one worker per CPU.)
+worker_processes        {{ ansible_processor_count }};
+
+# Specifies how often gettimeofday() is called instead of each time a kernel
+# event is received
+timer_resolution        {{ nginx_timer_resolution }};
+
+# The value should be equal to:
+# (sudo -u nginx ulimit -n) / 2
+# This number should be increased if  you see a message in your error log
+# that "worker_connections exceed open file resource limit".
+# Before increasing it be sure to tune the maximum number of open file
+# descriptors at the operating system level
+# vim /etc/security/limits.conf
+worker_rlimit_nofile    {{ nginx_worker_rlimit_nofile }};
+
+# Sets the scheduling priority for worker processes. Works like the
+# nice command, with a negative number being a higher priority.
+worker_priority         {{ nginx_worker_priority }};
+
+
+pid                     {{ nginx_pid }};
+
+events {
+
+    # This directive configures the maximum number of simultaneous connections
+    # for a worker process. This includes client connections and connections
+    # to upstream servers. Should be equal to:
+    # (worker_processes)*(worker_rlimit_nofile)
+    worker_connections   {{ nginx_max_clients }};
+
+    multi_accept         {{ nginx_multi_accept }};
+}
+
+
+http {
+
+        include         /etc/nginx/mime.types;
+        default_type    application/octet-stream;
+
+        log_format      main  '$remote_addr - $remote_user [$time_local] "$request" '
+                            '$status $body_bytes_sent "$http_referer" '
+                            '"$http_user_agent" "$http_x_forwarded_for"';
+
+{% for k,v in nginx_http_params.iteritems() %}
+        {{ k }}         {{ v }};
+{% endfor %}
+
+
+        include /etc/nginx/conf.d/*.conf;
+        include /etc/nginx/sites-enabled/*;
+}

@@ -1,0 +1,15 @@
+---
+galaxy_info:
+  author: "Damiano Venturin"
+  description: "Install and configure (optionally) Nginx on Debian system. Derived from Benno Joy's and Pierre Buyle's versions."
+  company: 2V
+  license: BSD
+  min_ansible_version: 1.4
+  platforms:
+   - name: Debian
+     versions:
+      - squeeze
+      - wheezy
+  categories:
+   - web
+dependencies: []

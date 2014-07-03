@@ -1,0 +1,17 @@
+---
+
+env:
+ RUNLEVEL: 1
+
+# Set your system Debian release
+debian_release: wheezy
+
+# The source string for Nginx APT repository to use
+nginx_apt_repository: deb http://nginx.org/packages/debian/ {{debian_release}} nginx
+
+# The URL of the APT key for the Nginx repository
+nginx_apt_key: http://nginx.org/keys/nginx_signing.key
+
+# The list of packages to install for Nginx
+nginx_packages:
+  - nginx

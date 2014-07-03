@@ -1,0 +1,52 @@
+---
+
+# Configure Nginx?
+# The configuration will be executed only once right after the nginx package installation.
+# If false then you'll end up with the default configuration provided by the debian package.
+configure_nginx: true
+
+# Nginx settings for nginx.conf
+nginx_daemon: "on"
+nginx_user: "www-data"
+nginx_group: "www-data"
+nginx_timer_resolution: "100ms"
+nginx_worker_rlimit_nofile: "512"
+nginx_worker_priority: "-5"
+nginx_pid: "/var/run/nginx.pid"
+nginx_max_clients: "1024"
+nginx_multi_accept: "off"
+
+nginx_http_params:
+  sendfile: "on"
+  tcp_nopush: "on"
+  tcp_nodelay: "on"
+  keepalive_timeout: "65"
+  access_log: "/var/log/nginx/access.log"
+  error_log: "/var/log/nginx/error.log"
+  gzip:  "off"
+  gzip_min_length: "1100"
+  gzip_buffers: "64 8k"
+  gzip_comp_level: "3"
+  gzip_http_version: "1.1"
+  gzip_proxied: "any"
+  gzip_types: "text/plain text/javascript text/xml application/json application/xml application/xml+rss application/x-javascript text/css"
+  gzip_disable: 'MSIE [1-6]\.(?!.*SV1)'
+  client_max_body_size: "10M"
+  server_tokens: "off"
+
+# Vhosts list
+nginx_sites:
+ - server:
+    file_name: foo
+    listen: 8080
+    server_name: localhost
+    root: "/tmp/site1"
+    location1: {name: /, try_files: "$uri $uri/ /index.html"}
+    location2: {name: /images/, try_files: "$uri $uri/ /index.html"}
+ - server:
+    file_name: bar
+    listen: 9090
+    server_name: ansible
+    root: "/tmp/site2"
+    location1: {name: /, try_files: "$uri $uri/ /index.html"}
+    location2: {name: /images/, try_files: "$uri $uri/ /index.html"}
