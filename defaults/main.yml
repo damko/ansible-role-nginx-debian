@@ -15,8 +15,10 @@ nginx_worker_priority: "-5"
 nginx_pid: "/var/run/nginx.pid"
 nginx_max_clients: "1024"
 nginx_multi_accept: "off"
+nginx_default_webroot: "/var/www"
 
 nginx_http_params:
+  server_names_hash_bucket_size: "512"
   sendfile: "on"
   tcp_nopush: "on"
   tcp_nodelay: "on"
@@ -33,6 +35,9 @@ nginx_http_params:
   gzip_disable: 'MSIE [1-6]\.(?!.*SV1)'
   client_max_body_size: "10M"
   server_tokens: "off"
+  proxy_buffer_size: "256k"
+  proxy_buffers: "4 512k"
+  proxy_busy_buffers_size: "512k"
 
 # Vhosts list
 nginx_sites:

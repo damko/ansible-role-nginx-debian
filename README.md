@@ -134,6 +134,6 @@ BSD
 Author Information
 ------------------
 
-Damiano Venturin
+Damiano Venturin @damko
 
 

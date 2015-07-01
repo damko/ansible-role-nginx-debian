@@ -62,6 +62,10 @@ http {
         {{ k }}         {{ v }};
 {% endfor %}
 
+        #//reference: http://stackoverflow.com/questions/13894386/upstream-too-big-nginx-codeigniter
+        fastcgi_buffer_size 256k;
+        fastcgi_buffers 4 512k;
+        fastcgi_busy_buffers_size 512k;
 
         include /etc/nginx/conf.d/*.conf;
         include /etc/nginx/sites-enabled/*;
